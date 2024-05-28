@@ -35,7 +35,7 @@ Route::post('document', [DocumentController::class, 'store'])->name('document.st
 Route::get('document/{id}', [DocumentController::class, 'show']);
 Route::get('document/edit/{document}', [DocumentController::class, 'edit'])->name('document.edit');
 Route::patch('document/{document}', [DocumentController::class, 'update'])->name('document.update');
-Route::delete('document/delete/{document}', [DocumentController::class, 'destroy'])->name('document.delete');
+Route::delete('document/delete/{id}', [DocumentController::class, 'destroy'])->name('document.delete');
 
 Route::middleware([
     'auth:sanctum',

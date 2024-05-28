@@ -7,44 +7,42 @@
         </h2>
     </x-slot>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6:lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 mb-5">
                 <section class="container px-4 mx-auto">
                     @if (session('success'))
-                    <script>
-                        Swal.fire({
-                            title: "Excelente",
-                            text: "{{ session('success') }}",
-                            icon: "success"
-                        });
-                    </script>
-                                          
+                        <script>
+                            Swal.fire({
+                                title: "Excelente",
+                                text: "{{ session('success') }}",
+                                icon: "success"
+                            });
+                        </script>
                     @endif
+
                     <div class="sm:flex sm:items-center sm:justify-between">
-                        <h2 class="text-lg font-medium text-gray-800 mt-10">Empresas</h2>
+                        <h2 class="text-lg font-medium text-gray-800 mt-10">{{ $type->name }}</h2>
                         @can('create '. $type->name)
                             <div class="flex items-center mt-4 gap-x-3">
                                 <a href="{{ route('document.create', $type->slug) }}" class="flex items-center justify-center w-1/2 px-5 py-2 shadow-lg text-sm tracking-wide text-white transition-colors duration-200 bg-indigo-500 rounded-lg sm:w-auto gap-x-2 hover:bg-indigo-600">
-                                Agregar {{ $type->name }}
+                                    Agregar {{ $type->name }}
                                 </a>
-                            </div>                           
+                            </div>
                         @endcan
                     </div>
 
-                    <p class="mt-1 text-sm text-gray-500">Aqui estan las empresas registradas.</p>
+                    <p class="mt-1 text-sm text-gray-500">Aquí están los documentos registrados.</p>
 
                     <div class="flex flex-col mt-6">
                         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                                <div class="overflow-hidden border border-gray-200  md:rounded-lg">
-                
-                                    <table class="min-w-full divide-y divide-gray-200 ">
-                                        <thead class="bg-gray-50 ">
+                                <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+                                    <table class="min-w-full divide-y divide-gray-200">
+                                        <thead class="bg-gray-50">
                                             <tr>
-                                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 ">
+                                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500">
                                                     <button class="flex items-center gap-x-3 focus:outline-none">
-                                                        <span>Titulo</span>
-                
+                                                        <span>Título</span>
                                                         <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
                                                             <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
@@ -52,41 +50,35 @@
                                                         </svg>
                                                     </button>
                                                 </th>
-                
-                                                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                                                    Numero                          
+                                                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                                    Número
                                                 </th>
-                
-                                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 ">
-                                                    Accion
+                                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                                    Acción
                                                 </th>
-                
-
                                             </tr>
                                         </thead>
-                                        <tbody class="bg-white divide-y divide-gray-200 ">
+                                        <tbody class="bg-white divide-y divide-gray-200">
                                             @foreach ($documents as $i)
                                             <tr>
                                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                                     <div>
-                                                        <h2 class="font-medium text-gray-800  "> {{ $i->titulo }} </h2>
+                                                        <h2 class="font-medium text-gray-800">{{ $i->title }}</h2>
                                                     </div>
                                                 </td>
-
                                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                     <div>
-                                                        <h4 class="text-gray-700 "> {{ $i->document_number }} </h4>
+                                                        <h4 class="text-gray-700">{{ $i->document_number }}</h4>
                                                     </div>
                                                 </td>
-                
                                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                                     <div class="flex items-center gap-x-6">
                                                         @can('edit '. $type->name)
-                                                        <a href="{{ route('company.edit',$i->id) }}" class="cursor-pointer text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500  hover:text-yellow-500 focus:outline-none">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                            </svg>
-                                                        </a>                                          
+                                                            <a href="{{ route('document.edit', [$type->slug, $i->id]) }}" class="cursor-pointer text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 hover:text-yellow-500 focus:outline-none">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                                </svg>
+                                                            </a>
                                                         @endcan
                                                         @can('delete '. $type->name)
                                                             <button id="deleteButton-{{ $i->id }}" class="text-gray-500 transition-colors duration-200 hover:text-red-500 focus:outline-none">
@@ -94,20 +86,17 @@
                                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                                 </svg>
                                                             </button>
-                                                            <form id="delete-{{ $i->id }}" action="{{ route('company.delete', $i->id) }}" method="post">
+                                                            <form id="delete-{{ $i->id }}" action="{{ route('document.delete', $i->id) }}" method="post" style="display:none;">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                            </form>                                                         
+                                                            </form>
                                                         @endcan
                                                     </div>
                                                 </td>
-                                            </tr>                                             
+                                            </tr>
                                             @endforeach
-
-            
                                         </tbody>
                                     </table>
-                
                                 </div>
                             </div>
                         </div>
@@ -115,13 +104,11 @@
                     <div class="mt-10">
                         {{ $documents->links() }}
                     </div>
-                    
                 </section>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @foreach ($documents as $i)
     <script>
         document.getElementById('deleteButton-{{ $i->id }}').addEventListener('click', function() {
@@ -139,7 +126,6 @@
                 }
             });
         });
-    </script>   
+    </script>
     @endforeach
-
 </x-app-layout>

@@ -23,17 +23,20 @@ class DocumentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($type)
     {
-        //
+        $type = DocumentType::where("slug", $type)->firstOrFail();
+        $document = null; // Or new Document(), depending on your requirements
+        return view('documents.form', compact('type', 'document'));
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -42,6 +45,7 @@ class DocumentController extends Controller
     public function show(Document $document)
     {
         //
+        return view('document.show', compact('document'));
     }
 
     /**
@@ -49,7 +53,8 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
-        //
+        $type = $document->documentType;
+        return view('documents.form', compact('type', 'document'));
     }
 
     /**
@@ -63,8 +68,10 @@ class DocumentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Document $document)
+    public function destroy(Document $document, $id)
     {
-        //
+        $document->where("id", $id)->delete();
+        
+        return redirect()->back()->with("success","Eliminado correctamente");
     }
 }
