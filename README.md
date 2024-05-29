@@ -5,3 +5,5 @@ php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvid
 php artisan permission:create-role "Super Admin" web
 
 php artisan permission:create-role writer web "create company|edit company
+
+php artisan storage:link
