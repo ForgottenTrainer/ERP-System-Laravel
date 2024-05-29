@@ -18,6 +18,10 @@
                         Subir al sistema
                     </x-button>
                 </form> 
+                <hr class="m-5">
+                <div class="mt-10">
+                    @livewire('document.attachments', ['document' => $document])
+                </div>
             </div>
         </div>
     </div>
