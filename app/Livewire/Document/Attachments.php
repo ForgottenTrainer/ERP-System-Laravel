@@ -20,7 +20,7 @@ class Attachments extends Component
     public function save()
     {
         $this->validate([
-            'file' => 'required|image|max:1024', // reglas de validación
+            'file' => 'required|image|max:1024', 
         ]);
 
         if ($this->file) {
